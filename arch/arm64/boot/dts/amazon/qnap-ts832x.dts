@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: (GPL-2.0+)
+/*
+ * Copyright (C) 2020 Pierre Bourdon <delroth@gmail.com>
+ */
+
+#include "alpine-v2.dtsi"
+
+/ {
+	model = "QNAP TS-832X";
+	compatible = "qnap,ts-832x", "al,alpine-v2";
+
+	aliases {
+		serial0 = &uart0;
+	};
+
+	chosen {
+		stdout-path = "serial0:115200n8";
+	};
+};
+
+&uart0 {
+	status = "okay";
+};
