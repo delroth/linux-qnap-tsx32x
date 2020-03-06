@@ -16,6 +16,18 @@
 	chosen {
 		stdout-path = "serial0:115200n8";
 	};
+
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		/* Secure Monitor firmware lives in the lower 0x100000 bytes. */
+		firmware: firmware@0 {
+			reg = <0x00000000 0x00000000 0x00000000 0x00100000>;
+			no-map;
+		};
+	};
 };
 
 &uart0 {
