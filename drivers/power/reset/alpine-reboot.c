@@ -13,6 +13,8 @@
 #include <linux/platform_device.h>
 #include <linux/reboot.h>
 
+#include <asm/system_misc.h>
+
 #define WDTLOAD		0x000
 #define LOAD_MIN	0x00000001
 #define LOAD_MAX	0xFFFFFFFF
@@ -68,6 +70,13 @@ static int alpine_reboot_probe(struct platform_device *pdev)
 		dev_err(&pdev->dev,
 		        "cannot register restart handler (err=%d)\n", err);
 		iounmap(base);
+	} else {
+		// The default PSCI firmware provided on Alpine v2 boards does
+		// not support the reset function. Unfortunately, if using
+		// PSCI, the kernel does not attempt using the restart handled
+		// mechanism and leaves it all to the firmware. Override this
+		// locally. Ideally, this should be a PSCI DT setting.
+		arm_pm_restart = NULL;
 	}
 
 	return err;
@@ -85,4 +94,4 @@ static struct platform_driver alpine_reboot_driver = {
 		.of_match_table = alpine_reboot_of_match,
 	},
 };
-module_platform_driver(alpine_reboot_driver);
+builtin_platform_driver(alpine_reboot_driver);
