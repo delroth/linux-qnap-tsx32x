@@ -157,6 +157,15 @@
 			#size-cells = <1>;
 			ranges = <0x0 0x0 0xfc000000 0x2000000>;
 
+			i2c: i2c@1880000 {
+				compatible = "snps,designware-i2c";
+				#address-cells = <0x01>;
+				#size-cells = <0x00>;
+				reg = <0x1880000 0x1000>;
+				interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
+				clock-frequency = <100000>;
+			};
+
 			watchdog: wdt@188c000 {
 				compatible = "arm,sp805", "arm,primecell";
 				reg = <0x188c000 0x1000>;

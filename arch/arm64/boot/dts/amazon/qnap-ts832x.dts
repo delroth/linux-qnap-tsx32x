@@ -30,6 +30,13 @@
 	};
 };
 
+&i2c {
+	rtc: rtc@32 {
+		compatible = "epson,rx8010";
+		reg = <0x32>;
+	};
+};
+
 &uart0 {
 	status = "okay";
 };
