@@ -151,23 +151,23 @@
 			al,msi-num-spis = <160>;
 		};
 
-		watchdog: wdt@fd88c000 {
-			compatible = "arm,sp805", "arm,primecell";
-			reg = <0x0 0xfd88c000 0x0 0x1000>;
-			clocks = <&sbclk>;
-			clock-names = "apb_pclk";
-		};
-
-		reboot {
-			compatible = "al,alpine-reboot";
-			wdt-parent = <&watchdog>;
-		};
-
 		io-fabric {
 			compatible = "simple-bus";
 			#address-cells = <1>;
 			#size-cells = <1>;
 			ranges = <0x0 0x0 0xfc000000 0x2000000>;
+
+			watchdog: wdt@188c000 {
+				compatible = "arm,sp805", "arm,primecell";
+				reg = <0x188c000 0x1000>;
+				clocks = <&sbclk>;
+				clock-names = "apb_pclk";
+			};
+
+			reboot {
+				compatible = "al,alpine-reboot";
+				wdt-parent = <&watchdog>;
+			};
 
 			uart0: serial@1883000 {
 				compatible = "ns16550a";
