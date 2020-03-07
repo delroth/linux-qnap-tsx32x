@@ -158,6 +158,11 @@
 			clock-names = "apb_pclk";
 		};
 
+		reboot {
+			compatible = "al,alpine-reboot";
+			wdt-parent = <&watchdog>;
+		};
+
 		io-fabric {
 			compatible = "simple-bus";
 			#address-cells = <1>;
