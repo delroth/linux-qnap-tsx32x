@@ -125,7 +125,7 @@
 			#interrupt-cells = <3>;
 		};
 
-		pci@fbc00000 {
+		pcie_internal: pci@fbc00000 {
 			compatible = "pci-host-ecam-generic";
 			device_type = "pci";
 			#size-cells = <2>;
@@ -139,6 +139,24 @@
 			/* 32 bit non prefetchable memory space */
 			ranges = <0x2000000 0x0 0xfe000000 0x0 0xfe000000 0x0 0x1000000>;
 			bus-range = <0x00 0x00>;
+			msi-parent = <&msix>;
+		};
+
+		pcie_external0: pcie@fb600000 {
+			compatible = "amazon,al-alpine-v2-pcie";
+			device_type = "pci";
+			#size-cells = <2>;
+			#address-cells = <3>;
+			#interrupt-cells = <1>;
+			reg = <0x0 0xfb600000 0x0 0x00100000
+			       0x0 0xfd800000 0x0 0x00010000
+			       0x0 0xfd810000 0x0 0x00001000>;
+			reg-names = "config", "controller", "dbi";
+			bus-range = <0x00 0xff>;
+			interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-map-mask = <0x00 0 0 7>;
+			interrupt-map = <0x0000 0 0 1 &gic GIC_SPI 41 IRQ_TYPE_LEVEL_HIGH>;
+			ranges = <0x02000000 0x0 0xc0010000 0x0 0xc0010000 0x0 0x07ff0000>;
 			msi-parent = <&msix>;
 		};
 
