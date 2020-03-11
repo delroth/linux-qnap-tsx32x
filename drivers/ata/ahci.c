@@ -1683,6 +1683,12 @@ static int ahci_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
 	if (pdev->vendor == PCI_VENDOR_ID_MARVELL && !marvell_enable)
 		return -ENODEV;
 
+#if IS_ENABLED(CONFIG_AHCI_ALPINE)
+	/* Prefer the more specific Alpine driver if enabled. */
+	if (board_id == board_ahci_al)
+		return -ENODEV;
+#endif
+
 	/* Apple BIOS on MCP89 prevents us using AHCI */
 	if (is_mcp89_apple(pdev))
 		ahci_mcp89_apple_enable(pdev);

@@ -99,6 +99,7 @@ static ssize_t ahci_store_em_buffer(struct device *dev,
 static ssize_t ahci_show_em_supported(struct device *dev,
 				      struct device_attribute *attr, char *buf);
 static irqreturn_t ahci_single_level_irq_intr(int irq, void *dev_instance);
+static irqreturn_t ahci_multi_irqs_intr_hard(int irq, void *dev_instance);
 
 static DEVICE_ATTR(ahci_host_caps, S_IRUGO, ahci_show_host_caps, NULL);
 static DEVICE_ATTR(ahci_host_cap2, S_IRUGO, ahci_show_host_cap2, NULL);
@@ -554,6 +555,9 @@ void ahci_save_initial_config(struct device *dev, struct ahci_host_priv *hpriv)
 
 	if (!hpriv->irq_handler)
 		hpriv->irq_handler = ahci_single_level_irq_intr;
+
+	if (!hpriv->multi_irq_handler)
+		hpriv->multi_irq_handler = ahci_multi_irqs_intr_hard;
 }
 EXPORT_SYMBOL_GPL(ahci_save_initial_config);
 
@@ -1888,7 +1892,7 @@ static void ahci_handle_port_interrupt(struct ata_port *ap,
 	}
 }
 
-static void ahci_port_intr(struct ata_port *ap)
+void ahci_port_intr(struct ata_port *ap)
 {
 	void __iomem *port_mmio = ahci_port_base(ap);
 	u32 status;
@@ -1898,6 +1902,7 @@ static void ahci_port_intr(struct ata_port *ap)
 
 	ahci_handle_port_interrupt(ap, port_mmio, status);
 }
+EXPORT_SYMBOL_GPL(ahci_port_intr);
 
 static irqreturn_t ahci_multi_irqs_intr_hard(int irq, void *dev_instance)
 {
@@ -2559,7 +2564,7 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
 			continue;
 		}
 
-		rc = devm_request_irq(host->dev, irq, ahci_multi_irqs_intr_hard,
+		rc = devm_request_irq(host->dev, irq, hpriv->multi_irq_handler,
 				0, pp->irq_desc, host->ports[i]);
 
 		if (rc)

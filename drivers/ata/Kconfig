@@ -143,6 +143,16 @@ config SATA_AHCI_PLATFORM
 
 	  If unsure, say N.
 
+config AHCI_ALPINE
+	tristate "Amazon Annapurna Labs Alpine AHCI SATA support"
+	depends on ARCH_ALPINE
+	select SATA_HOST
+	help
+	  This option enables support for the AHCI SATA controller found on
+	  Amazon Annapurna Labs Alpine SoCs.
+
+	  If unsure, say N.
+
 config AHCI_BRCM
 	tristate "Broadcom AHCI SATA support"
 	depends on ARCH_BRCMSTB || BMIPS_GENERIC || ARCH_BCM_NSP || \
