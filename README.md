@@ -8,8 +8,24 @@ mainline tree.
 
 ## Current status
 
-The kernel boots and emits some printk to UART0 via earlycon. It freezes while
-probing for psci, probably due to missing DT attributes.
+The following custom hardware is supported:
+
+* Reboot via watchdog
+* PCIe
+* RTC
+* AHCI with MSI-X support (`CONFIG_AHCI_ALPINE`)
+* Network via [al_eth-standalone](https://github.com/delroth/al_eth-standalone)
+  * Currently only 100Mbps / 1Gbps, and with a few caveats.
+
+Still TODO / missing:
+
+* Poweroff
+* Thermal / fans
+* MTD / NAND
+* More `al_eth` work.
+* SPI Flash support
+* SATA blinkenlights
+* A lot of testing
 
 ## How to build
 
