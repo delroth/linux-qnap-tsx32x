@@ -196,9 +196,15 @@
 				wdt-parent = <&watchdog>;
 			};
 
+			pbs {
+				compatible = "al,alpine-pbs";
+				reg = <0x18a8000 0x1000>;
+				interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
+			};
+
 			thermal0: thermal {
 				compatible = "al,alpine-thermal";
-				reg = <0x18860a0 0x100>;
+				reg = <0x1860a00 0x100>;
 				#thermal-sensor-cells = <0>;
 			};
 
