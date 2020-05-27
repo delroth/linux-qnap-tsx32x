@@ -28,6 +28,21 @@
 			no-map;
 		};
 	};
+
+	thermal-zones {
+		cpu-thermal {
+			thermal-sensors = <&thermal0>;
+			polling-delay = <1000>;
+			polling-delay-passive = <250>;
+			trips {
+				cpu-crit {
+					type = "critical";
+					temperature = <105000>;
+					hysteresis = <2000>;
+				};
+			};
+		};
+	};
 };
 
 &i2c {

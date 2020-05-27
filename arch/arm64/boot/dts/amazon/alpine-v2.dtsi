@@ -196,6 +196,12 @@
 				wdt-parent = <&watchdog>;
 			};
 
+			thermal0: thermal {
+				compatible = "al,alpine-thermal";
+				reg = <0x18860a0 0x100>;
+				#thermal-sensor-cells = <0>;
+			};
+
 			uart0: serial@1883000 {
 				compatible = "ns16550a";
 				device_type = "serial";
