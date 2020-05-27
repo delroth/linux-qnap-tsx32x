@@ -16,11 +16,11 @@ The following custom hardware is supported:
 * AHCI with MSI-X support (`CONFIG_AHCI_ALPINE`)
 * Network via [al_eth-standalone](https://github.com/delroth/al_eth-standalone)
   * Currently only 100Mbps / 1Gbps, and with a few caveats.
+* Thermal via [al_thermal-standalone](https://github.com/delroth/al_thermal-standalone)
 
 Still TODO / missing:
 
 * Poweroff
-* Thermal / fans
 * MTD / NAND
 * More `al_eth` work.
 * SPI Flash support
