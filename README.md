@@ -1,7 +1,7 @@
 # Linux kernel fork for QNAP TS-x32x
 
 This repository is my work in progress for a recent Linux kernel version
-(5.5.5) running on the QNAP TS-x32x series NAS devices. These NAS run on an
+(5.13.3) running on the QNAP TS-x32x series NAS devices. These NAS run on an
 Annapurna Labs (now Amazon) Alpine v2 SoC which has only partial upstream
 support, though Amazon seems interested in moving more and more parts to the
 mainline tree.
