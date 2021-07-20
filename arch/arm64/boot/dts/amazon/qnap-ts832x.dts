@@ -50,6 +50,11 @@
 		compatible = "epson,rx8010";
 		reg = <0x32>;
 	};
+
+	i2c_mux: i2c_mux@70 {
+		compatible = "pca9543";
+		reg = <0x70>;
+	};
 };
 
 &uart0 {
