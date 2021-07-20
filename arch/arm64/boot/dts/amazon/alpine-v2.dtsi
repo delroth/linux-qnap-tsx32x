@@ -282,6 +282,11 @@
 				clocks = <&sbclk>;
 				status = "disabled";
 			};
+
+			serdes {
+				compatible = "annapurna-labs,al-serdes";
+				reg = <0x18c0000 0x2400>;
+			};
 		};
 	};
 };
