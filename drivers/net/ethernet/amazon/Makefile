@@ -3,4 +3,5 @@
 # Makefile for the Amazon network device drivers.
 #
 
+obj-$(CONFIG_AL_ETHERNET) += al/
 obj-$(CONFIG_ENA_ETHERNET) += ena/
